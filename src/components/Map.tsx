@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Box, Divider, Text } from '@chakra-ui/react';
 import { formatDistance } from 'date-fns';
 import ReactMapGL, { Layer, MapEvent, Popup, Source } from 'react-map-gl';
+import { Availability } from '../types/types';
 import { Status } from './Status';
 
 interface MapProps {
@@ -17,9 +18,9 @@ interface MapProps {
 
 interface IMarker {
   properties: {
-    hasMilchshake: boolean | null;
-    hasMcFlurry: boolean | null;
-    hasMcSundae: boolean | null;
+    hasMilchshake: Availability;
+    hasMcFlurry: Availability;
+    hasMcSundae: Availability;
     lastChecked: number;
     name: string;
     dot: string;

@@ -37,3 +37,10 @@ export interface IIPService {
   org: string;
   as: string;
 }
+
+export enum Availability {
+  AVAILABLE = 'AVAILABLE',
+  NOT_AVAILABLE = 'NOT_AVAILABLE',
+  UNKNOWN = 'UNKNOWN',
+  NOT_APPLICABLE = 'NOT_APPLICABLE',
+}

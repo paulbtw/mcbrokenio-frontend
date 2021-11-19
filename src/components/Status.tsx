@@ -1,17 +1,19 @@
 import React from 'react';
 import { Flex, Text, Badge, Box } from '@chakra-ui/react';
+import { Availability } from '../types/types';
 
 interface BadgeProps {
   name: string;
-  hasItem: boolean | null;
+  hasItem: Availability;
 }
 
 export const Status: React.FC<BadgeProps> = ({ name, hasItem }) => {
-  const hasItemRender = (active: Boolean | null) => {
-    if (active === true) {
+  if (hasItem === Availability.NOT_APPLICABLE) return null;
+  const hasItemRender = (active: Availability) => {
+    if (active === Availability.AVAILABLE) {
       return <Badge colorScheme="green">Available</Badge>;
     }
-    if (active === false) {
+    if (active === Availability.NOT_AVAILABLE) {
       return <Badge colorScheme="red">Unavailable</Badge>;
     }
     return <Badge colorScheme="gray">Unknown</Badge>;
