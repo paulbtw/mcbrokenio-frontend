@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { Box, Center, Flex, Heading, Link } from '@chakra-ui/layout';
 import axios from 'axios';
 import type { GetServerSideProps, NextPage } from 'next';
-import { Head } from 'next/document';
 import dynamic from 'next/dynamic';
+import Head from 'next/head';
 import { IGeoJson, IIPService } from '../types/types';
 
 interface HomeProps {
