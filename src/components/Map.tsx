@@ -1,7 +1,13 @@
 import { useState } from 'react';
 import { Box, Divider, Text } from '@chakra-ui/react';
 import { formatDistance } from 'date-fns';
-import ReactMapGL, { Layer, MapEvent, Popup, Source } from 'react-map-gl';
+import ReactMapGL, {
+  ExtraState,
+  Layer,
+  MapEvent,
+  Popup,
+  Source,
+} from 'react-map-gl';
 import { Availability } from '../types/types';
 import { Status } from './Status';
 
@@ -30,6 +36,16 @@ interface IMarker {
     latitude: number;
     longitude: number;
   };
+}
+
+function getCursor({ isHovering, isDragging }: ExtraState) {
+  if (isDragging) {
+    return 'grabbing';
+  }
+  if (isHovering) {
+    return 'pointer';
+  }
+  return 'default';
 }
 
 const Map: React.FC<MapProps> = ({
@@ -86,6 +102,9 @@ const Map: React.FC<MapProps> = ({
         }
         asyncRender={true}
         onClick={onClick}
+        getCursor={getCursor}
+        clickRadius={2}
+        interactiveLayerIds={['Point']}
       >
         <Source id="markers" type="geojson" data={markers}>
           <Layer
