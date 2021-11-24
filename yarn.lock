@@ -272,7 +272,7 @@
     "@chakra-ui/react-utils" "1.2.1"
     "@chakra-ui/utils" "1.9.1"
 
-"@chakra-ui/layout@1.5.1":
+"@chakra-ui/layout@1.5.1", "@chakra-ui/layout@^1.5.1":
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/@chakra-ui/layout/-/layout-1.5.1.tgz#be33e8fb5fb187f13c5c0ef66fe94cd293094da6"
   integrity sha512-nKiyZ5adjNTbBV3oFIUGIPijwutO1NGdev1jHtnZc3xo2urCIkBvKU8+mVjlX04IwZ7oLKoP3EiDDv0g7+o41Q==

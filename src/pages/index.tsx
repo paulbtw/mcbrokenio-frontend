@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import { Box, Center, Flex, Heading, Link } from '@chakra-ui/layout';
 import axios from 'axios';
 import type { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
+import Head from 'next/head';
 import { IGeoJson, IIPService } from '../types/types';
 
 interface HomeProps {
@@ -28,9 +30,36 @@ const Home: NextPage<HomeProps> = ({ currentLocation }) => {
   }, []);
 
   return (
-    <div>
-      <Map markers={markers} currentLocation={currentLocation} />
-    </div>
+    <>
+      <Head>
+        <title>McBroken.io</title>
+      </Head>
+      <Flex w="100vw" h="100vh" direction="column">
+        <Box w="100%" bg="grey">
+          <Center>
+            <Heading size="lg">
+              Source:{' '}
+              <Link
+                href="https://github.com/paulbtw/mcbrokenio-frontend"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                Website
+              </Link>{' '}
+              and{' '}
+              <Link
+                href="https://github.com/paulbtw/mcbrokenio"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                Backend
+              </Link>
+            </Heading>
+          </Center>
+        </Box>
+        <Map markers={markers} currentLocation={currentLocation} />
+      </Flex>
+    </>
   );
 };
 

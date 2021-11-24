@@ -37,7 +37,7 @@ const Map: React.FC<MapProps> = ({
   currentLocation: { lat, lon },
 }) => {
   const [viewport, setViewport] = useState({
-    width: '100%',
+    width: 'fit',
     height: '100%',
     latitude: lat,
     longitude: lon,
@@ -76,12 +76,14 @@ const Map: React.FC<MapProps> = ({
   };
 
   return (
-    <div style={{ width: '100vw', height: '100vh' }}>
+    <div style={{ width: 'fit', height: '100%' }}>
       <ReactMapGL
         mapStyle="mapbox://styles/paaulbtw/ckw14wqnw07is14ny2oagkdvb"
         mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAPBOX_KEY}
         {...viewport}
-        onViewportChange={(nextViewport: any) => setViewport(nextViewport)}
+        onViewportChange={(nextViewport: any) =>
+          setViewport({ ...nextViewport, width: 'fit', height: 'fit' })
+        }
         asyncRender={true}
         onClick={onClick}
       >
