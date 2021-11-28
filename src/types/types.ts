@@ -2,12 +2,16 @@ export interface IFeatures {
   geometry: { coordinates: number[]; type: string };
   properties: {
     hasMilchshake: boolean;
+    timeSinceBrokenMilchshake: number | null;
     hasMcSundae: boolean;
+    timeSinceBrokenMcSundae: number | null;
     hasMcFlurry: boolean;
+    timeSinceBrokenMcFlurry: number | null;
     lastChecked: string;
     name: string;
     dot: string;
     open: string;
+    hasMobileOrdering: boolean;
   };
   type: string;
 }
