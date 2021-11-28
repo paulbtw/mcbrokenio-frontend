@@ -7,19 +7,6 @@ class Document extends NextDocument {
     return (
       <Html>
         <Head>
-          <script
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GTAG}`}
-          ></script>
-          <script
-            dangerouslySetInnerHTML={{
-              __html: ` window.dataLayer = window.dataLayer || [];
-                        function gtag(){dataLayer.push(arguments);}
-                        gtag('js', new Date());
-                    
-                        gtag('config', ${process.env.NEXT_PUBLIC_GTAG});`,
-            }}
-          ></script>
           <link
             href="https://api.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.css"
             rel="stylesheet"
@@ -51,6 +38,14 @@ class Document extends NextDocument {
           <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         </Head>
         <body>
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${process.env.NEXT_PUBLIC_GTAG}`}
+              height="0"
+              width="0"
+              style={{ display: 'none', visibility: 'hidden' }}
+            />
+          </noscript>
           <Main />
           <NextScript />
         </body>
