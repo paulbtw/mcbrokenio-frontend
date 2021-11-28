@@ -57,7 +57,9 @@ const Home: NextPage<HomeProps> = ({ currentLocation }) => {
             </Heading>
           </Center>
         </Box>
-        <Map markers={markers} currentLocation={currentLocation} />
+        {Object.keys(markers).length > 0 && (
+          <Map markers={markers} currentLocation={currentLocation} />
+        )}
       </Flex>
     </>
   );
