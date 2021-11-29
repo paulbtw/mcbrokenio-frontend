@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Divider, Text } from '@chakra-ui/react';
+import { Box, Divider, Text, useMediaQuery } from '@chakra-ui/react';
 import { formatDistance } from 'date-fns';
 import ReactMapGL, {
   ExtraState,
@@ -52,6 +52,7 @@ const Map: React.FC<MapProps> = ({
   markers,
   currentLocation: { lat, lon },
 }) => {
+  const [isMobile] = useMediaQuery('(max-width: 1080px)');
   const [viewport, setViewport] = useState({
     width: 'fit',
     height: '100%',
@@ -91,6 +92,13 @@ const Map: React.FC<MapProps> = ({
     }
   };
 
+  const eventRecognizerOptions = isMobile
+    ? {
+        pan: { threshold: 10 },
+        tap: { threshold: 5 },
+      }
+    : {};
+
   return (
     <div style={{ width: 'fit', height: '100%' }}>
       <ReactMapGL
@@ -106,6 +114,7 @@ const Map: React.FC<MapProps> = ({
         getCursor={getCursor}
         clickRadius={2}
         interactiveLayerIds={['Point']}
+        eventRecognizerOptions={eventRecognizerOptions}
       >
         <Source id="markers" type="geojson" data={markers}>
           <Layer
