@@ -102,6 +102,7 @@ const Map: React.FC<MapProps> = ({
         }
         asyncRender={true}
         onClick={onClick}
+        onTouchEnd={onClick}
         getCursor={getCursor}
         clickRadius={2}
         interactiveLayerIds={['Point']}
@@ -126,6 +127,7 @@ const Map: React.FC<MapProps> = ({
               closeOnClick={true}
               onClose={() => setSelectedMarker(null)}
               anchor="bottom"
+              dynamicPosition={true}
             >
               <Box style={{ width: '300px' }}>
                 <Text>{selectedMarker.properties.name}</Text>
