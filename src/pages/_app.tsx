@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
-import Script from 'next/script';
 import { pageview } from '../lib/gtm';
 import theme from '../theme';
 
@@ -16,19 +15,21 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [router.events]);
   return (
     <>
-      <Script
-        id="gtag"
-        strategy="afterInteractive"
+      <script
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GTAG}`}
+      ></script>
+      <script
         dangerouslySetInnerHTML={{
           __html: `
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer', '${process.env.NEXT_PUBLIC_GTAG}');
-          `,
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+
+                    gtag('config', '${process.env.NEXT_PUBLIC_GTAG}');
+                  `,
         }}
-      />
+      ></script>
       <ChakraProvider theme={theme}>
         <Component {...pageProps} />
       </ChakraProvider>
