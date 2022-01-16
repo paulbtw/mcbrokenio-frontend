@@ -48,3 +48,29 @@ export enum Availability {
   UNKNOWN = 'UNKNOWN',
   NOT_APPLICABLE = 'NOT_APPLICABLE',
 }
+
+export interface ICountryStats {
+  total: number;
+  availablemilchshakes: number;
+  totalmilchshakes: number;
+  longestbrokenmilchshake: null | string;
+  availablemcflurrys: number;
+  totalmcflurrys: number;
+  longestbrokenmcflurry: null | string;
+  availablemcsundaes: number;
+  totalmcsundaes: number;
+  longestbrokenmcsundae: null | string;
+  country: string;
+}
+
+export interface ITotalStats {
+  totalMcd: number;
+  totalBrokenMilchshake: number;
+  totalBrokenMcFlurry: number;
+  totalBrokenMcSundae: number;
+}
+
+export interface IStats {
+  countryStats: ICountryStats[];
+  totalStats: ITotalStats;
+}
