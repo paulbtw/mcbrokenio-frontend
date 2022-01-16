@@ -4,8 +4,8 @@ module.exports = {
   async rewrites() {
     return [
       {
-        source: '/api/markers.json',
-        destination: process.env.MARKER_URL, // Proxy to Backend
+        source: '/assets/:path',
+        destination: `${process.env.S3_URL}/:path`, // Proxy to S3
       },
     ];
   },
