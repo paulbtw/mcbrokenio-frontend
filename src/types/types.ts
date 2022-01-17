@@ -51,6 +51,7 @@ export enum Availability {
 
 export interface ICountryStats {
   total: number;
+  trackable: number;
   availablemilchshakes: number;
   totalmilchshakes: number;
   longestbrokenmilchshake: null | string;
