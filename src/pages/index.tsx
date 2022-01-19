@@ -5,6 +5,7 @@ import axios from 'axios';
 import type { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import {
+  CountryTable,
   CustomGridItem,
   DashboardCard,
   DashboardStatsCard,
@@ -74,8 +75,13 @@ const Home: NextPage<HomeProps> = ({ currentLocation }) => {
           trackableMcSundae: 0,
         },
       );
+
+      const sortedDataStats = dataStats
+        .filter((country) => country.trackable > 0)
+        .sort((a, b) => (a.total > b.total ? -1 : 1));
+
       setStats({
-        countryStats: dataStats,
+        countryStats: sortedDataStats,
         totalStats: total,
       });
       setMarkers(dataMarker);
@@ -97,6 +103,7 @@ const Home: NextPage<HomeProps> = ({ currentLocation }) => {
           templateRows="auto 1fr"
           gap={2}
           w="100%"
+          height="100%"
         >
           <CustomGridItem height="5rem">
             <DashboardStatsCard
@@ -127,14 +134,7 @@ const Home: NextPage<HomeProps> = ({ currentLocation }) => {
             />
           </CustomGridItem>
           <CustomGridItem height="100%">
-            <Flex
-              width="100%"
-              height="100%"
-              alignItems="center"
-              justifyContent="center"
-            >
-              Coming Soon...
-            </Flex>
+            <CountryTable data={stats?.countryStats} />
           </CustomGridItem>
           <CustomGridItem height="100%" colSpan={3}>
             {markers && (
