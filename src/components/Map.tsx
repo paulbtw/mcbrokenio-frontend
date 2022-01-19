@@ -138,7 +138,7 @@ const Map: React.FC<MapProps> = ({
               anchor="bottom"
               dynamicPosition={true}
             >
-              <Box style={{ width: '300px' }}>
+              <Box style={{ width: '300px' }} bg="gray.200">
                 <Text>{selectedMarker.properties.name}</Text>
                 <Divider style={{ margin: '6px 0 6px 0' }} />
                 <Status
