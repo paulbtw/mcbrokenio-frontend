@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { pageview } from '../lib/gtm';
 import theme from '../theme';
+import '../theme/index.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
