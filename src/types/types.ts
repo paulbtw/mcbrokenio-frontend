@@ -67,11 +67,11 @@ export interface ICountryStats {
 export interface ITotalStats {
   totalMcd: number;
   trackableMcd: number;
-  totalBrokenMilchshake: number;
+  availableMilchshake: number;
   trackableMilchshake: number;
-  totalBrokenMcFlurry: number;
+  availableMcFlurry: number;
   trackableMcFlurry: number;
-  totalBrokenMcSundae: number;
+  availableMcSundae: number;
   trackableMcSundae: number;
 }
 
