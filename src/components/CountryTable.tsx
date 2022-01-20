@@ -15,6 +15,7 @@ export const CountryTable: FC<IProps> = ({ data }) => {
       css={{
         '&::-webkit-scrollbar': {
           height: '6px',
+          width: '6px',
         },
         '&::-webkit-scrollbar-track': {
           width: '6px',
