@@ -19,11 +19,11 @@ interface HomeProps {
   };
 }
 
-const Home: NextPage<HomeProps> = ({ currentLocation }) => {
-  const Map = dynamic(() => import('../components/Map'), {
-    ssr: false,
-  });
+const Map = dynamic(() => import('../components/Map'), {
+  ssr: false,
+});
 
+const Home: NextPage<HomeProps> = ({ currentLocation }) => {
   const { toggleColorMode } = useColorMode();
 
   const [markers, setMarkers] = useState<GeoJSON.FeatureCollection<
@@ -49,29 +49,23 @@ const Home: NextPage<HomeProps> = ({ currentLocation }) => {
           return {
             totalMcd: all.totalMcd + cur.total,
             trackableMcd: all.trackableMcd + cur.trackable,
-            totalBrokenMilchshake:
-              all.totalBrokenMilchshake +
-              (cur.totalmilchshakes - cur.availablemilchshakes),
-            trackableMilchshake:
-              all.trackableMilchshake + cur.availablemilchshakes,
-            totalBrokenMcFlurry:
-              all.totalBrokenMcFlurry +
-              (cur.totalmcflurrys - cur.availablemcflurrys),
-            trackableMcFlurry: all.trackableMcFlurry + cur.availablemcflurrys,
-            totalBrokenMcSundae:
-              all.totalBrokenMcSundae +
-              (cur.totalmcsundaes - cur.availablemcsundaes),
-            trackableMcSundae: all.trackableMcSundae + cur.availablemcsundaes,
+            availableMilchshake:
+              all.availableMilchshake + cur.availablemilchshakes,
+            trackableMilchshake: all.trackableMilchshake + cur.totalmilchshakes,
+            availableMcFlurry: all.availableMcFlurry + cur.availablemcflurrys,
+            trackableMcFlurry: all.trackableMcFlurry + cur.totalmcflurrys,
+            availableMcSundae: all.availableMcSundae + cur.availablemcsundaes,
+            trackableMcSundae: all.trackableMcSundae + cur.totalmcsundaes,
           };
         },
         {
           totalMcd: 0,
           trackableMcd: 0,
-          totalBrokenMilchshake: 0,
+          availableMilchshake: 0,
           trackableMilchshake: 0,
-          totalBrokenMcFlurry: 0,
+          availableMcFlurry: 0,
           trackableMcFlurry: 0,
-          totalBrokenMcSundae: 0,
+          availableMcSundae: 0,
           trackableMcSundae: 0,
         },
       );
@@ -114,22 +108,22 @@ const Home: NextPage<HomeProps> = ({ currentLocation }) => {
           </CustomGridItem>
           <CustomGridItem height="5rem">
             <DashboardStatsCard
-              label="Unavailable Milchshakes"
-              value={stats?.totalStats?.totalBrokenMilchshake}
+              label="Available Milchshakes"
+              value={stats?.totalStats?.availableMilchshake}
               total={stats?.totalStats?.trackableMilchshake}
             />
           </CustomGridItem>
           <CustomGridItem height="5rem">
             <DashboardStatsCard
-              label="Unavailable McFlurries"
-              value={stats?.totalStats?.totalBrokenMcFlurry}
+              label="Available McFlurries"
+              value={stats?.totalStats?.availableMcFlurry}
               total={stats?.totalStats?.trackableMcFlurry}
             />
           </CustomGridItem>
           <CustomGridItem height="5rem">
             <DashboardStatsCard
-              label="Unavailable McSundaes"
-              value={stats?.totalStats?.totalBrokenMcSundae}
+              label="Available McSundaes"
+              value={stats?.totalStats?.availableMcSundae}
               total={stats?.totalStats?.trackableMcSundae}
             />
           </CustomGridItem>
