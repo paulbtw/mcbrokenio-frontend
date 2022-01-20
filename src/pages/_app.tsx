@@ -3,6 +3,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 import { pageview } from '../lib/gtm';
 import theme from '../theme';
 import '../theme/index.css';
@@ -42,10 +43,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="twitter:creator" content="paulbtw" />
       </Head>
 
-      <script
+      <Script
         async
         src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GTAG}`}
-      ></script>
+      ></Script>
       <Script
         id="gtag"
         strategy="afterInteractive"
@@ -58,7 +59,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                     gtag('config', '${process.env.NEXT_PUBLIC_GTAG}');
                   `,
         }}
-      ></script>
+      ></Script>
       <ChakraProvider theme={theme}>
         <Component {...pageProps} />
       </ChakraProvider>
