@@ -31,8 +31,11 @@ interface MapProps {
 interface IMarker {
   properties: {
     hasMilchshake: Availability;
+    timeSinceBrokenMilchshake: number | null;
     hasMcFlurry: Availability;
+    timeSinceBrokenMcFlurry: number | null;
     hasMcSundae: Availability;
+    timeSinceBrokenMcSundae: number | null;
     lastChecked: number;
     name: string;
     dot: string;
@@ -82,8 +85,14 @@ const Map: React.FC<MapProps> = ({
       setSelectedMarker({
         properties: {
           hasMcFlurry: marker.properties.hasMcFlurry ?? null,
+          timeSinceBrokenMcFlurry:
+            marker.properties.timeSinceBrokenMcFlurry ?? null,
           hasMcSundae: marker.properties.hasMcSundae ?? null,
+          timeSinceBrokenMcSundae:
+            marker.properties.timeSinceBrokenMcSundae ?? null,
           hasMilchshake: marker.properties.hasMilchshake ?? null,
+          timeSinceBrokenMilchshake:
+            marker.properties.timeSinceBrokenMilchshake ?? null,
           lastChecked: marker.properties.lastChecked ?? 0,
           name: marker.properties.name ?? '',
           dot: marker.properties.dot ?? '',
@@ -156,14 +165,23 @@ const Map: React.FC<MapProps> = ({
                 <Status
                   name="Milchshake"
                   hasItem={selectedMarker.properties.hasMilchshake}
+                  brokenSince={
+                    selectedMarker.properties.timeSinceBrokenMilchshake
+                  }
                 />
                 <Status
                   name="McFlurry"
                   hasItem={selectedMarker.properties.hasMcFlurry}
+                  brokenSince={
+                    selectedMarker.properties.timeSinceBrokenMcFlurry
+                  }
                 />
                 <Status
                   name="McSundae"
                   hasItem={selectedMarker.properties.hasMcSundae}
+                  brokenSince={
+                    selectedMarker.properties.timeSinceBrokenMcSundae
+                  }
                 />
                 <Divider style={{ margin: '6px 0 6px 0' }} />
 
