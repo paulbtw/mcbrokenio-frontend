@@ -1,9 +1,12 @@
 import { useEffect } from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
 import type { AppProps } from 'next/app';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 import { pageview } from '../lib/gtm';
 import theme from '../theme';
+import '../theme/index.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -15,11 +18,38 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [router.events]);
   return (
     <>
-      <script
+      <Head>
+        <title>McBroken.io</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="title" content="McBroken.io" />
+        <meta
+          name="description"
+          content="Tracking the McDonald's ice and milchshake status"
+        />
+        <meta name="og:type" content="website" />
+        <meta name="og:url" content="https://mcbroken.io/" />
+        <meta name="og:title" content="McBroken.io" />
+        <meta
+          name="og:description"
+          content="Tracking the McDonald's ice and milchshake status"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://mcbroken.io/" />
+        <meta name="twitter:title" content="McBroken.io" />
+        <meta
+          name="twitter:description"
+          content="Tracking the McDonald's ice and milchshake status"
+        />
+        <meta name="twitter:creator" content="paulbtw" />
+      </Head>
+
+      <Script
         async
         src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GTAG}`}
-      ></script>
-      <script
+      ></Script>
+      <Script
+        id="gtag"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
                     window.dataLayer = window.dataLayer || [];
@@ -29,7 +59,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                     gtag('config', '${process.env.NEXT_PUBLIC_GTAG}');
                   `,
         }}
-      ></script>
+      ></Script>
       <ChakraProvider theme={theme}>
         <Component {...pageProps} />
       </ChakraProvider>

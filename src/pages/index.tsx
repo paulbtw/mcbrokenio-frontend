@@ -1,10 +1,16 @@
 import { useEffect, useState } from 'react';
-import { Box, Center, Flex, Heading, Link } from '@chakra-ui/layout';
+import { Flex, Grid, Link } from '@chakra-ui/layout';
+import { Button, useColorMode } from '@chakra-ui/react';
 import axios from 'axios';
 import type { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
-import Head from 'next/head';
-import { IGeoJson, IIPService } from '../types/types';
+import {
+  CountryTable,
+  CustomGridItem,
+  DashboardCard,
+  DashboardStatsCard,
+} from '../components';
+import { ICountryStats, IIPService, IStats, ITotalStats } from '../types/types';
 
 interface HomeProps {
   currentLocation: {
@@ -13,53 +19,161 @@ interface HomeProps {
   };
 }
 
-const Home: NextPage<HomeProps> = ({ currentLocation }) => {
-  const Map = dynamic(() => import('../components/Map'), {
-    ssr: false,
-  });
+const Map = dynamic(() => import('../components/Map'), {
+  ssr: false,
+});
 
-  const [markers, setMarkers] = useState<any>({});
+const Home: NextPage<HomeProps> = ({ currentLocation }) => {
+  const { toggleColorMode } = useColorMode();
+
+  const [markers, setMarkers] = useState<GeoJSON.FeatureCollection<
+    GeoJSON.Geometry,
+    GeoJSON.GeoJsonProperties
+  > | null>(null);
+  const [stats, setStats] = useState<IStats | null>(null);
 
   useEffect(() => {
-    const fetchMarkers = async () => {
-      const response = await axios.get('/api/markers.json');
-      const data = response.data as IGeoJson;
-      setMarkers(data);
+    const fetchStats = async () => {
+      const [responseMarker, responseStats] = await Promise.all([
+        axios.get('/assets/marker.json'),
+        await axios.get('/assets/stats.json'),
+      ]);
+      const dataMarker = responseMarker.data as GeoJSON.FeatureCollection<
+        GeoJSON.Geometry,
+        GeoJSON.GeoJsonProperties
+      >;
+
+      const dataStats = responseStats.data as ICountryStats[];
+      const total = dataStats.reduce<ITotalStats>(
+        (all, cur) => {
+          return {
+            totalMcd: all.totalMcd + cur.total,
+            trackableMcd: all.trackableMcd + cur.trackable,
+            availableMilchshake:
+              all.availableMilchshake + cur.availablemilchshakes,
+            trackableMilchshake: all.trackableMilchshake + cur.totalmilchshakes,
+            availableMcFlurry: all.availableMcFlurry + cur.availablemcflurrys,
+            trackableMcFlurry: all.trackableMcFlurry + cur.totalmcflurrys,
+            availableMcSundae: all.availableMcSundae + cur.availablemcsundaes,
+            trackableMcSundae: all.trackableMcSundae + cur.totalmcsundaes,
+          };
+        },
+        {
+          totalMcd: 0,
+          trackableMcd: 0,
+          availableMilchshake: 0,
+          trackableMilchshake: 0,
+          availableMcFlurry: 0,
+          trackableMcFlurry: 0,
+          availableMcSundae: 0,
+          trackableMcSundae: 0,
+        },
+      );
+
+      const sortedDataStats = dataStats
+        .filter((country) => country.trackable > 0)
+        .sort((a, b) => (a.total > b.total ? -1 : 1));
+
+      setStats({
+        countryStats: sortedDataStats,
+        totalStats: total,
+      });
+      setMarkers(dataMarker);
     };
-    fetchMarkers();
+    fetchStats();
   }, []);
 
   return (
     <>
-      <Head>
-        <title>McBroken.io</title>
-      </Head>
-      <Flex w="100vw" h="100vh" direction="column">
-        <Box w="100%" bg="grey">
-          <Center>
-            <Heading size="lg">
-              Source:{' '}
+      <Flex
+        height="100vh"
+        width="100vw"
+        justifyContent="center"
+        flexWrap="wrap"
+        padding="2"
+      >
+        <Grid
+          templateColumns="repeat(4, 1fr)"
+          templateRows="auto 1fr"
+          gap={2}
+          w="100%"
+          height="100%"
+        >
+          <CustomGridItem height="5rem">
+            <DashboardStatsCard
+              label="Trackable McDonalds"
+              value={stats?.totalStats?.trackableMcd}
+              total={stats?.totalStats?.totalMcd}
+            />
+          </CustomGridItem>
+          <CustomGridItem height="5rem">
+            <DashboardStatsCard
+              label="Available Milchshakes"
+              value={stats?.totalStats?.availableMilchshake}
+              total={stats?.totalStats?.trackableMilchshake}
+            />
+          </CustomGridItem>
+          <CustomGridItem height="5rem">
+            <DashboardStatsCard
+              label="Available McFlurries"
+              value={stats?.totalStats?.availableMcFlurry}
+              total={stats?.totalStats?.trackableMcFlurry}
+            />
+          </CustomGridItem>
+          <CustomGridItem height="5rem">
+            <DashboardStatsCard
+              label="Available McSundaes"
+              value={stats?.totalStats?.availableMcSundae}
+              total={stats?.totalStats?.trackableMcSundae}
+            />
+          </CustomGridItem>
+          <CustomGridItem height="100%">
+            <CountryTable data={stats?.countryStats} />
+          </CustomGridItem>
+          <CustomGridItem height="100%" colSpan={3}>
+            {markers && (
+              <Map markers={markers} currentLocation={currentLocation} />
+            )}
+          </CustomGridItem>
+          <CustomGridItem height="5rem">
+            <DashboardCard>
               <Link
-                href="https://github.com/paulbtw/mcbrokenio-frontend"
+                href="https://mcbroken.com/"
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                Website
-              </Link>{' '}
-              and{' '}
+                Inspired by McBroken.com
+              </Link>
+            </DashboardCard>
+          </CustomGridItem>
+          <CustomGridItem height="5rem">
+            <DashboardCard>
               <Link
                 href="https://github.com/paulbtw/mcbrokenio"
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                Backend
+                Backend Source
               </Link>
-            </Heading>
-          </Center>
-        </Box>
-        {Object.keys(markers).length > 0 && (
-          <Map markers={markers} currentLocation={currentLocation} />
-        )}
+            </DashboardCard>
+          </CustomGridItem>
+          <CustomGridItem height="5rem">
+            <DashboardCard>
+              <Link
+                href="https://github.com/paulbtw/mcbrokenio-frontend"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                Website Source
+              </Link>
+            </DashboardCard>
+          </CustomGridItem>
+          <CustomGridItem height="5rem">
+            <Flex height="100%" alignItems="center" justifyContent="center">
+              <Button onClick={toggleColorMode}>Toggle Darkmode</Button>
+            </Flex>
+          </CustomGridItem>
+        </Grid>
       </Flex>
     </>
   );
