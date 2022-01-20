@@ -1,5 +1,11 @@
 import { useState } from 'react';
-import { Box, Divider, Text, useMediaQuery } from '@chakra-ui/react';
+import {
+  Box,
+  Divider,
+  Text,
+  useColorModeValue,
+  useMediaQuery,
+} from '@chakra-ui/react';
 import { formatDistance } from 'date-fns';
 import ReactMapGL, {
   ExtraState,
@@ -52,6 +58,7 @@ const Map: React.FC<MapProps> = ({
   markers,
   currentLocation: { lat, lon },
 }) => {
+  const bgColor = useColorModeValue('gray.200', 'gray.700');
   const [isMobile] = useMediaQuery('(max-width: 1080px)');
   const [viewport, setViewport] = useState({
     width: 'fit',
@@ -138,7 +145,12 @@ const Map: React.FC<MapProps> = ({
               anchor="bottom"
               dynamicPosition={true}
             >
-              <Box style={{ width: '300px' }} bg="gray.200" padding={2}>
+              <Box
+                style={{ width: '300px' }}
+                bgColor={bgColor}
+                padding={2}
+                borderRadius={6}
+              >
                 <Text>{selectedMarker.properties.name}</Text>
                 <Divider style={{ margin: '6px 0 6px 0' }} />
                 <Status
