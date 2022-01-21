@@ -133,7 +133,7 @@ const Map: React.FC<MapProps> = ({
         clickRadius={2}
         interactiveLayerIds={['Point']}
         eventRecognizerOptions={eventRecognizerOptions}
-        minZoom={4}
+        minZoom={2}
         maxZoom={15}
       >
         <Source id="markers" type="geojson" data={markers}>
@@ -145,8 +145,8 @@ const Map: React.FC<MapProps> = ({
                 'interpolate',
                 ['linear'],
                 ['zoom'],
-                4,
-                3,
+                2,
+                2,
                 15,
                 7,
               ],

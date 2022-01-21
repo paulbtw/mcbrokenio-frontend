@@ -42,7 +42,12 @@ export const WorldMesh: FC<IProps> = () => {
       <mesh>
         <sphereGeometry attach="geometry" args={[2, 128, 128]} />
         <meshPhongMaterial specularMap={specularMap} />
-        <meshStandardMaterial map={colorMap} normalMap={normalMap} />
+        <meshStandardMaterial
+          map={colorMap}
+          normalMap={normalMap}
+          metalness={0.4}
+          roughness={0.7}
+        />
         <OrbitControls
           enablePan={true}
           enableZoom={true}
