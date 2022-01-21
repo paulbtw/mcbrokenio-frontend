@@ -26,7 +26,7 @@ export const CountryTable: FC<IProps> = ({ data }) => {
         },
       }}
     >
-      <Table size="sm">
+      <Table>
         <Thead>
           <Tr>
             <Th textAlign="center" px={2} py={1}>
