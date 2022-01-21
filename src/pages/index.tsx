@@ -3,9 +3,8 @@ import { Flex, Grid, Link } from '@chakra-ui/layout';
 import { Button, useColorMode } from '@chakra-ui/react';
 import axios from 'axios';
 import type { GetServerSideProps, NextPage } from 'next';
-import dynamic from 'next/dynamic';
 import {
-  CountryTable,
+  Center,
   CustomGridItem,
   DashboardCard,
   DashboardStatsCard,
@@ -18,10 +17,6 @@ interface HomeProps {
     lon: number;
   };
 }
-
-const Map = dynamic(() => import('../components/Map'), {
-  ssr: false,
-});
 
 const Home: NextPage<HomeProps> = ({ currentLocation }) => {
   const { toggleColorMode } = useColorMode();
@@ -70,9 +65,9 @@ const Home: NextPage<HomeProps> = ({ currentLocation }) => {
         },
       );
 
-      const sortedDataStats = dataStats
-        .filter((country) => country.trackable > 0)
-        .sort((a, b) => (a.total > b.total ? -1 : 1));
+      const sortedDataStats = dataStats.sort((a, b) =>
+        a.total > b.total ? -1 : 1,
+      );
 
       setStats({
         countryStats: sortedDataStats,
@@ -127,13 +122,12 @@ const Home: NextPage<HomeProps> = ({ currentLocation }) => {
               total={stats?.totalStats?.trackableMcSundae}
             />
           </CustomGridItem>
-          <CustomGridItem height="100%">
-            <CountryTable data={stats?.countryStats} />
-          </CustomGridItem>
-          <CustomGridItem height="100%" colSpan={3}>
-            {markers && (
-              <Map markers={markers} currentLocation={currentLocation} />
-            )}
+          <CustomGridItem height="100%" colSpan={4}>
+            <Center
+              markers={markers}
+              currentLocation={currentLocation}
+              countryStats={stats?.countryStats}
+            />
           </CustomGridItem>
           <CustomGridItem height="5rem">
             <DashboardCard>
