@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import {
   Box,
   Divider,
@@ -73,7 +73,7 @@ const Map: React.FC<MapProps> = ({
 
   const [selectedMarker, setSelectedMarker] = useState<IMarker | null>(null);
 
-  const onClick = (event: MapEvent) => {
+  const onClick = useCallback((event: MapEvent) => {
     if (!event.features || !event.features.length) {
       setSelectedMarker(null);
       return;
@@ -106,14 +106,16 @@ const Map: React.FC<MapProps> = ({
     } else {
       setSelectedMarker(null);
     }
-  };
+  }, []);
 
-  const eventRecognizerOptions = isMobile
-    ? {
-        pan: { threshold: 10 },
-        tap: { threshold: 5 },
-      }
-    : {};
+  const eventRecognizerOptions = useMemo(() => {
+    return isMobile
+      ? {
+          pan: { threshold: 10 },
+          tap: { threshold: 5 },
+        }
+      : {};
+  }, [isMobile]);
 
   return (
     <div style={{ width: 'fit', height: '100%' }}>
@@ -131,19 +133,30 @@ const Map: React.FC<MapProps> = ({
         clickRadius={2}
         interactiveLayerIds={['Point']}
         eventRecognizerOptions={eventRecognizerOptions}
+        minZoom={4}
+        maxZoom={15}
       >
         <Source id="markers" type="geojson" data={markers}>
           <Layer
             id="Point"
             type="circle"
             paint={{
-              'circle-radius': 5,
+              'circle-radius': [
+                'interpolate',
+                ['linear'],
+                ['zoom'],
+                4,
+                3,
+                15,
+                7,
+              ],
               'circle-color': {
                 type: 'identity',
                 property: 'dot',
               },
             }}
           />
+
           {selectedMarker && (
             <Popup
               latitude={selectedMarker.geometry.latitude}
@@ -151,8 +164,8 @@ const Map: React.FC<MapProps> = ({
               closeButton={true}
               closeOnClick={true}
               onClose={() => setSelectedMarker(null)}
-              anchor="bottom"
               dynamicPosition={true}
+              anchor="bottom"
             >
               <Box
                 style={{ width: '300px' }}
