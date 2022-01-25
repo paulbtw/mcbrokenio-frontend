@@ -12,6 +12,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^1.1.1",
     "@chakra-ui/layout": "^1.5.1",
     "@chakra-ui/react": "^1.7.2",
     "@emotion/react": "^11",
@@ -27,6 +28,7 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-map-gl": "^6.1.17",
+    "react-table": "^7.7.0",
     "three": "^0.136.0",
     "three-stdlib": "^2.7.0"
   },
@@ -34,6 +36,7 @@
     "@next/bundle-analyzer": "^12.0.4",
     "@types/node": "16.11.7",
     "@types/react": "17.0.34",
+    "@types/react-table": "^7.7.9",
     "@types/three": "^0.136.1",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "eslint": "7",
