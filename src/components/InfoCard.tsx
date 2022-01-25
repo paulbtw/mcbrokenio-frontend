@@ -36,7 +36,7 @@ export const InfoCard: FC<IProps> = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <Button onClick={toggleColorMode} size="sm" w="85%">
+        <Button size="sm" w="85%">
           Coming soon
         </Button>
       </Flex>
@@ -46,7 +46,7 @@ export const InfoCard: FC<IProps> = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <Button onClick={toggleColorMode} size="sm" w="85%">
+        <Button size="sm" w="85%">
           Coming soon
         </Button>
       </Flex>
@@ -56,7 +56,7 @@ export const InfoCard: FC<IProps> = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <Button onClick={toggleColorMode} size="sm" w="85%">
+        <Button size="sm" w="85%">
           Coming soon
         </Button>
       </Flex>
