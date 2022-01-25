@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 import { ICountryStats } from '../types/types';
+import { AdvancedTable } from './AdvancedTable';
 import { CountryTable } from './CountryTable';
 import { World } from './World';
 
@@ -33,6 +34,7 @@ export const Center: FC<IProps> = ({
           <Tab>Map</Tab>
           <Tab>Stats</Tab>
           <Tab>3D World</Tab>
+          <Tab>Advanced Table</Tab>
         </TabList>
         <TabPanels width="100%" height="100%">
           <TabPanel width="100%" height="100%" p={0}>
@@ -45,6 +47,9 @@ export const Center: FC<IProps> = ({
           </TabPanel>
           <TabPanel width="100%" height="100%" p={0}>
             <World />
+          </TabPanel>
+          <TabPanel width="100%" height="100%" p={0}>
+            <AdvancedTable />
           </TabPanel>
         </TabPanels>
       </Tabs>

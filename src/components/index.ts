@@ -4,3 +4,6 @@ export * from './DashboardStatsCard';
 export * from './DashboardCard';
 export * from './CountryTable';
 export * from './Center';
+export * from './AdvancedTable';
+export * from './LinkContainer';
+export * from './InfoCard';

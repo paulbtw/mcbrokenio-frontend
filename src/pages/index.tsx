@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Flex, Grid, Link } from '@chakra-ui/layout';
-import { Button, useColorMode } from '@chakra-ui/react';
+import { Flex, Grid, Text } from '@chakra-ui/layout';
 import axios from 'axios';
 import type { GetServerSideProps, NextPage } from 'next';
 import {
   Center,
   CustomGridItem,
-  DashboardCard,
   DashboardStatsCard,
+  InfoCard,
+  LinkContainer,
 } from '../components';
 import { ICountryStats, IIPService, IStats, ITotalStats } from '../types/types';
 
@@ -19,8 +19,6 @@ interface HomeProps {
 }
 
 const Home: NextPage<HomeProps> = ({ currentLocation }) => {
-  const { toggleColorMode } = useColorMode();
-
   const [markers, setMarkers] = useState<GeoJSON.FeatureCollection<
     GeoJSON.Geometry,
     GeoJSON.GeoJsonProperties
@@ -130,42 +128,22 @@ const Home: NextPage<HomeProps> = ({ currentLocation }) => {
             />
           </CustomGridItem>
           <CustomGridItem height="5rem">
-            <DashboardCard>
-              <Link
-                href="https://mcbroken.com/"
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                Inspired by McBroken.com
-              </Link>
-            </DashboardCard>
+            <LinkContainer url="https://mcbroken.com/">
+              <Text>Inspired by McBroken.com</Text>
+            </LinkContainer>
           </CustomGridItem>
           <CustomGridItem height="5rem">
-            <DashboardCard>
-              <Link
-                href="https://github.com/paulbtw/mcbrokenio"
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                Backend Source
-              </Link>
-            </DashboardCard>
+            <LinkContainer url="https://github.com/paulbtw/mcbrokenio">
+              <Text>Backend Source</Text>
+            </LinkContainer>
           </CustomGridItem>
           <CustomGridItem height="5rem">
-            <DashboardCard>
-              <Link
-                href="https://github.com/paulbtw/mcbrokenio-frontend"
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                Website Source
-              </Link>
-            </DashboardCard>
+            <LinkContainer url="https://github.com/paulbtw/mcbrokenio-frontend">
+              <Text>Website Source</Text>
+            </LinkContainer>
           </CustomGridItem>
           <CustomGridItem height="5rem">
-            <Flex height="100%" alignItems="center" justifyContent="center">
-              <Button onClick={toggleColorMode}>Toggle Darkmode</Button>
-            </Flex>
+            <InfoCard />
           </CustomGridItem>
         </Grid>
       </Flex>

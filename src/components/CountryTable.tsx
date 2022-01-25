@@ -1,6 +1,15 @@
 import { FC } from 'react';
 import { Box } from '@chakra-ui/layout';
-import { Skeleton, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import {
+  Skeleton,
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import { ICountryStats } from '../types/types';
 
 interface IProps {
@@ -8,6 +17,7 @@ interface IProps {
 }
 
 export const CountryTable: FC<IProps> = ({ data }) => {
+  const rowBackground = useColorModeValue('gray.100', 'gray.600');
   return (
     <Box
       overflow="auto"
@@ -26,7 +36,7 @@ export const CountryTable: FC<IProps> = ({ data }) => {
         },
       }}
     >
-      <Table>
+      <Table mb={4}>
         <Thead>
           <Tr>
             <Th textAlign="center" px={2} py={1}>
@@ -56,29 +66,48 @@ export const CountryTable: FC<IProps> = ({ data }) => {
                 </Tr>
               ))
             : data.map((country) => (
-                <Tr key={country.country}>
-                  <Td whiteSpace="nowrap" overflow="hidden" textAlign="center">
+                <Tr
+                  key={country.country}
+                  _even={{
+                    backgroundColor: rowBackground,
+                  }}
+                >
+                  <Td
+                    whiteSpace="nowrap"
+                    overflow="hidden"
+                    textAlign="center"
+                    px={2}
+                    py={1}
+                  >
                     {country.country}
                   </Td>
                   <Td
                     whiteSpace="nowrap"
                     overflow="hidden"
                     textAlign="center"
+                    px={2}
+                    py={1}
                   >{`${country.trackable} / ${country.total}`}</Td>
                   <Td
                     whiteSpace="nowrap"
                     overflow="hidden"
                     textAlign="center"
+                    px={2}
+                    py={1}
                   >{`${country.availablemilchshakes} / ${country.totalmilchshakes}`}</Td>
                   <Td
                     whiteSpace="nowrap"
                     overflow="hidden"
                     textAlign="center"
+                    px={2}
+                    py={1}
                   >{`${country.availablemcflurrys} / ${country.totalmcflurrys}`}</Td>
                   <Td
                     whiteSpace="nowrap"
                     overflow="hidden"
                     textAlign="center"
+                    px={2}
+                    py={1}
                   >{`${country.availablemcsundaes} / ${country.totalmcsundaes}`}</Td>
                 </Tr>
               ))}
