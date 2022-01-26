@@ -39,7 +39,7 @@ const Home: NextPage<HomeProps> = ({ currentLocation }) => {
       const dataStats = responseStats.data as ICountryStats[];
       const total = dataStats.reduce<ITotalStats>(
         (all, cur) => {
-          if (cur.country === 'UNKNWON') {
+          if (cur.country === 'UNKNOWN') {
             return all;
           }
           return {
