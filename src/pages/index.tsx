@@ -9,7 +9,7 @@ import {
   InfoCard,
   LinkContainer,
 } from '../components';
-import { ICountryStats, IIPService, IStats, ITotalStats } from '../types/types';
+import { ICountryStats, IIPService, IStats } from '../types/types';
 
 interface HomeProps {
   currentLocation: {
@@ -37,34 +37,7 @@ const Home: NextPage<HomeProps> = ({ currentLocation }) => {
       >;
 
       const dataStats = responseStats.data as ICountryStats[];
-      const total = dataStats.reduce<ITotalStats>(
-        (all, cur) => {
-          if (cur.country === 'UNKNOWN') {
-            return all;
-          }
-          return {
-            totalMcd: all.totalMcd + cur.total,
-            trackableMcd: all.trackableMcd + cur.trackable,
-            availableMilchshake:
-              all.availableMilchshake + cur.availablemilchshakes,
-            trackableMilchshake: all.trackableMilchshake + cur.totalmilchshakes,
-            availableMcFlurry: all.availableMcFlurry + cur.availablemcflurrys,
-            trackableMcFlurry: all.trackableMcFlurry + cur.totalmcflurrys,
-            availableMcSundae: all.availableMcSundae + cur.availablemcsundaes,
-            trackableMcSundae: all.trackableMcSundae + cur.totalmcsundaes,
-          };
-        },
-        {
-          totalMcd: 0,
-          trackableMcd: 0,
-          availableMilchshake: 0,
-          trackableMilchshake: 0,
-          availableMcFlurry: 0,
-          trackableMcFlurry: 0,
-          availableMcSundae: 0,
-          trackableMcSundae: 0,
-        },
-      );
+      const total = dataStats.find((elem) => elem.country === 'UNKNOWN');
 
       const sortedDataStats = dataStats.sort((a, b) =>
         a.total > b.total ? -1 : 1,
@@ -98,29 +71,29 @@ const Home: NextPage<HomeProps> = ({ currentLocation }) => {
           <CustomGridItem height="5rem">
             <DashboardStatsCard
               label="Trackable McDonalds"
-              value={stats?.totalStats?.trackableMcd}
-              total={stats?.totalStats?.totalMcd}
+              value={stats?.totalStats?.trackable}
+              total={stats?.totalStats?.total}
             />
           </CustomGridItem>
           <CustomGridItem height="5rem">
             <DashboardStatsCard
               label="Available Milchshakes"
-              value={stats?.totalStats?.availableMilchshake}
-              total={stats?.totalStats?.trackableMilchshake}
+              value={stats?.totalStats?.availablemilchshakes}
+              total={stats?.totalStats?.totalmilchshakes}
             />
           </CustomGridItem>
           <CustomGridItem height="5rem">
             <DashboardStatsCard
               label="Available McFlurries"
-              value={stats?.totalStats?.availableMcFlurry}
-              total={stats?.totalStats?.trackableMcFlurry}
+              value={stats?.totalStats?.availablemcflurrys}
+              total={stats?.totalStats?.totalmcflurrys}
             />
           </CustomGridItem>
           <CustomGridItem height="5rem">
             <DashboardStatsCard
               label="Available McSundaes"
-              value={stats?.totalStats?.availableMcSundae}
-              total={stats?.totalStats?.trackableMcSundae}
+              value={stats?.totalStats?.availablemcsundaes}
+              total={stats?.totalStats?.totalmcsundaes}
             />
           </CustomGridItem>
           <CustomGridItem height="100%" colSpan={4}>
