@@ -39,6 +39,9 @@ const Home: NextPage<HomeProps> = ({ currentLocation }) => {
       const dataStats = responseStats.data as ICountryStats[];
       const total = dataStats.reduce<ITotalStats>(
         (all, cur) => {
+          if (cur.country === 'UNKNWON') {
+            return all;
+          }
           return {
             totalMcd: all.totalMcd + cur.total,
             trackableMcd: all.trackableMcd + cur.trackable,
