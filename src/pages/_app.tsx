@@ -8,7 +8,7 @@ import { pageview } from '../lib/gtm';
 import theme from '../theme';
 import '../theme/index.css';
 
-function MyApp({ Component, pageProps }: AppProps) {
+const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
   useEffect(() => {
     router.events.on('routeChangeComplete', pageview);
@@ -65,6 +65,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       </ChakraProvider>
     </>
   );
-}
+};
 
-export default MyApp;
+export default App;
