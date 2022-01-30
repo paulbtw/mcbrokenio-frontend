@@ -65,52 +65,54 @@ export const CountryTable: FC<IProps> = ({ data }) => {
                   </Td>
                 </Tr>
               ))
-            : data.map((country) => (
-                <Tr
-                  key={country.country}
-                  _even={{
-                    backgroundColor: rowBackground,
-                  }}
-                >
-                  <Td
-                    whiteSpace="nowrap"
-                    overflow="hidden"
-                    textAlign="center"
-                    px={2}
-                    py={1}
+            : data
+                .filter((e) => e.country !== 'UNKNOWN')
+                .map((country) => (
+                  <Tr
+                    key={country.country}
+                    _even={{
+                      backgroundColor: rowBackground,
+                    }}
                   >
-                    {country.country}
-                  </Td>
-                  <Td
-                    whiteSpace="nowrap"
-                    overflow="hidden"
-                    textAlign="center"
-                    px={2}
-                    py={1}
-                  >{`${country.trackable} / ${country.total}`}</Td>
-                  <Td
-                    whiteSpace="nowrap"
-                    overflow="hidden"
-                    textAlign="center"
-                    px={2}
-                    py={1}
-                  >{`${country.availablemilchshakes} / ${country.totalmilchshakes}`}</Td>
-                  <Td
-                    whiteSpace="nowrap"
-                    overflow="hidden"
-                    textAlign="center"
-                    px={2}
-                    py={1}
-                  >{`${country.availablemcflurrys} / ${country.totalmcflurrys}`}</Td>
-                  <Td
-                    whiteSpace="nowrap"
-                    overflow="hidden"
-                    textAlign="center"
-                    px={2}
-                    py={1}
-                  >{`${country.availablemcsundaes} / ${country.totalmcsundaes}`}</Td>
-                </Tr>
-              ))}
+                    <Td
+                      whiteSpace="nowrap"
+                      overflow="hidden"
+                      textAlign="center"
+                      px={2}
+                      py={1}
+                    >
+                      {country.country}
+                    </Td>
+                    <Td
+                      whiteSpace="nowrap"
+                      overflow="hidden"
+                      textAlign="center"
+                      px={2}
+                      py={1}
+                    >{`${country.trackable} / ${country.total}`}</Td>
+                    <Td
+                      whiteSpace="nowrap"
+                      overflow="hidden"
+                      textAlign="center"
+                      px={2}
+                      py={1}
+                    >{`${country.availablemilchshakes} / ${country.totalmilchshakes}`}</Td>
+                    <Td
+                      whiteSpace="nowrap"
+                      overflow="hidden"
+                      textAlign="center"
+                      px={2}
+                      py={1}
+                    >{`${country.availablemcflurrys} / ${country.totalmcflurrys}`}</Td>
+                    <Td
+                      whiteSpace="nowrap"
+                      overflow="hidden"
+                      textAlign="center"
+                      px={2}
+                      py={1}
+                    >{`${country.availablemcsundaes} / ${country.totalmcsundaes}`}</Td>
+                  </Tr>
+                ))}
         </Tbody>
       </Table>
     </Box>
