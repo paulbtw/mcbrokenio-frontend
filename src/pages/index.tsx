@@ -68,28 +68,28 @@ const Home: NextPage<HomeProps> = ({ currentLocation }) => {
           w="100%"
           height="100%"
         >
-          <CustomGridItem height="5rem">
+          <CustomGridItem height="5rem" colSpan={[4, 4, 1]}>
             <DashboardStatsCard
               label="Trackable McDonalds"
               value={stats?.totalStats?.trackable}
               total={stats?.totalStats?.total}
             />
           </CustomGridItem>
-          <CustomGridItem height="5rem">
+          <CustomGridItem height="5rem" display={['none', 'none', 'block']}>
             <DashboardStatsCard
               label="Available Milchshakes"
               value={stats?.totalStats?.availablemilchshakes}
               total={stats?.totalStats?.totalmilchshakes}
             />
           </CustomGridItem>
-          <CustomGridItem height="5rem">
+          <CustomGridItem height="5rem" display={['none', 'none', 'block']}>
             <DashboardStatsCard
               label="Available McFlurries"
               value={stats?.totalStats?.availablemcflurrys}
               total={stats?.totalStats?.totalmcflurrys}
             />
           </CustomGridItem>
-          <CustomGridItem height="5rem">
+          <CustomGridItem height="5rem" display={['none', 'none', 'block']}>
             <DashboardStatsCard
               label="Available McSundaes"
               value={stats?.totalStats?.availablemcsundaes}
@@ -103,22 +103,22 @@ const Home: NextPage<HomeProps> = ({ currentLocation }) => {
               countryStats={stats?.countryStats}
             />
           </CustomGridItem>
-          <CustomGridItem height="5rem">
+          <CustomGridItem height="5rem" display={['none', 'none', 'block']}>
             <LinkContainer url="https://mcbroken.com/">
               <Text>Inspired by McBroken.com</Text>
             </LinkContainer>
           </CustomGridItem>
-          <CustomGridItem height="5rem">
+          <CustomGridItem height="5rem" display={['none', 'none', 'block']}>
             <LinkContainer url="https://github.com/paulbtw/mcbrokenio">
               <Text>Backend Source</Text>
             </LinkContainer>
           </CustomGridItem>
-          <CustomGridItem height="5rem">
+          <CustomGridItem height="5rem" display={['none', 'none', 'block']}>
             <LinkContainer url="https://github.com/paulbtw/mcbrokenio-frontend">
               <Text>Website Source</Text>
             </LinkContainer>
           </CustomGridItem>
-          <CustomGridItem height="5rem">
+          <CustomGridItem height="5rem" colSpan={[4, 4, 1]}>
             <InfoCard />
           </CustomGridItem>
         </Grid>
