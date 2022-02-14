@@ -33,8 +33,8 @@ export const Center: FC<IProps> = ({
         <TabList>
           <Tab>Map</Tab>
           <Tab>Stats</Tab>
-          <Tab>3D World</Tab>
-          <Tab disabled>Advanced Table</Tab>
+          <Tab isDisabled>3D World</Tab>
+          <Tab isDisabled>Advanced Table</Tab>
         </TabList>
         <TabPanels width="100%" height="100%">
           <TabPanel width="100%" height="100%" p={0}>
