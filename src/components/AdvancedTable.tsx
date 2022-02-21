@@ -40,7 +40,7 @@ export const AdvancedTable: FC<IProps> = () => {
   const tableInstance = useTable({ columns, data });
   return (
     <table {...tableInstance.getTableProps()}>
-      <thead>
+      {/* <thead>
         {
           // Loop over the header rows
           tableInstance.headerGroups.map((headerGroup) => (
@@ -90,7 +90,7 @@ export const AdvancedTable: FC<IProps> = () => {
             );
           })
         }
-      </tbody>
+      </tbody> */}
     </table>
   );
 };
