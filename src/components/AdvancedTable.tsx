@@ -62,7 +62,7 @@ export const AdvancedTable: FC<IProps> = () => {
           ))
         }
       </thead>
-      {/* Apply the table body props */}
+      {/* Apply the table body props 
       <tbody {...tableInstance.getTableBodyProps()}>
         {
           // Loop over the table rows
