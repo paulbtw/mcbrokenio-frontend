@@ -19,10 +19,10 @@ const Home: NextPage<HomeProps> = () => {
     GeoJSON.GeoJsonProperties
   > | null>(null);
   const [stats, setStats] = useState<IStats | null>(null);
-  const [currentLocation, setCurrentLocation] = useState<{
-    lat: Number;
-    lon: number;
-  } | null>(null);
+  const [currentLocation, setCurrentLocation] = useState({
+    lat: 51.5074,
+    lon: -0.1278,
+  });
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -57,8 +57,8 @@ const Home: NextPage<HomeProps> = () => {
       const data = response.data as IIPService;
 
       setCurrentLocation({
-        lat: data.lat ?? 51.5074,
-        lon: data.lon ?? -0.1278,
+        lat: data.lat,
+        lon: data.lon,
       });
     };
 
