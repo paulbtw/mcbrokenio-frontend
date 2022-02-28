@@ -20,7 +20,7 @@ const Home: NextPage<HomeProps> = () => {
   > | null>(null);
   const [stats, setStats] = useState<IStats | null>(null);
   const [currentLocation, setCurrentLocation] = useState<{
-    lat: number;
+    lat: Number;
     lon: number;
   } | null>(null);
 
