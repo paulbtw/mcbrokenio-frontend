@@ -14,7 +14,7 @@ interface IProps {
   currentLocation: {
     lat: number;
     lon: number;
-  };
+  } | null;
   countryStats: ICountryStats[] | undefined;
 }
 
@@ -38,7 +38,7 @@ export const Center: FC<IProps> = ({
         </TabList>
         <TabPanels width="100%" height="100%">
           <TabPanel width="100%" height="100%" p={0}>
-            {markers && (
+            {markers && currentLocation && (
               <Map markers={markers} currentLocation={currentLocation} />
             )}
           </TabPanel>
