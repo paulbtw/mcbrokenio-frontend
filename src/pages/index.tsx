@@ -53,7 +53,7 @@ const Home: NextPage<HomeProps> = () => {
 
   useEffect(() => {
     const fetchLocation = async () => {
-      const response = await axios.get(`http://ip-api.com/json`);
+      const response = await axios.get(`/location`);
       const data = response.data as IIPService;
 
       setCurrentLocation({
