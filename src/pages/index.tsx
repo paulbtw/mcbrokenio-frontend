@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Flex, Grid, Text } from '@chakra-ui/layout';
 import axios from 'axios';
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import {
   Center,
   CustomGridItem,
@@ -11,18 +11,19 @@ import {
 } from '../components';
 import { ICountryStats, IIPService, IStats } from '../types/types';
 
-interface HomeProps {}
+interface HomeProps {
+  currentLocation: {
+    lat: number;
+    lon: number;
+  };
+}
 
-const Home: NextPage<HomeProps> = () => {
+const Home: NextPage<HomeProps> = ({ currentLocation }) => {
   const [markers, setMarkers] = useState<GeoJSON.FeatureCollection<
     GeoJSON.Geometry,
     GeoJSON.GeoJsonProperties
   > | null>(null);
   const [stats, setStats] = useState<IStats | null>(null);
-  const [currentLocation, setCurrentLocation] = useState({
-    lat: 51.5074,
-    lon: -0.1278,
-  });
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -49,20 +50,6 @@ const Home: NextPage<HomeProps> = () => {
       setMarkers(dataMarker);
     };
     fetchStats();
-  }, []);
-
-  useEffect(() => {
-    const fetchLocation = async () => {
-      const response = await axios.get(`http://ip-api.com/json`);
-      const data = response.data as IIPService;
-
-      setCurrentLocation({
-        lat: data.lat,
-        lon: data.lon,
-      });
-    };
-
-    fetchLocation();
   }, []);
 
   return (
@@ -140,20 +127,20 @@ const Home: NextPage<HomeProps> = () => {
   );
 };
 
-// export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-//   const forwarded = req.headers['x-forwarded-for'] as string;
-//   const ip = forwarded ? forwarded.split(/, /)[0] : req.socket.remoteAddress;
-//   const response = await axios.get(`http://ip-api.com/json/${ip}`);
-//   const data = response.data as IIPService;
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const forwarded = req.headers['x-forwarded-for'] as string;
+  const ip = forwarded ? forwarded.split(/, /)[0] : req.socket.remoteAddress;
+  const response = await axios.get(`http://ip-api.com/json/${ip}`);
+  const data = response.data as IIPService;
 
-//   return {
-//     props: {
-//       currentLocation: {
-//         lat: data.lat ?? 51.5074,
-//         lon: data.lon ?? -0.1278,
-//       },
-//     },
-//   };
-// };
+  return {
+    props: {
+      currentLocation: {
+        lat: data.lat ?? 51.5074,
+        lon: data.lon ?? -0.1278,
+      },
+    },
+  };
+};
 
 export default Home;
