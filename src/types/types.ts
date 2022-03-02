@@ -42,6 +42,12 @@ export interface IIPService {
   as: string;
 }
 
+export interface ILocService {
+  success: boolean;
+  lat: number;
+  lon: number;
+}
+
 export enum Availability {
   AVAILABLE = 'AVAILABLE',
   NOT_AVAILABLE = 'NOT_AVAILABLE',

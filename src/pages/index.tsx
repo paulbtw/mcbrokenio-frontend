@@ -9,7 +9,7 @@ import {
   InfoCard,
   LinkContainer,
 } from '../components';
-import { ICountryStats, IIPService, IStats } from '../types/types';
+import { ICountryStats, ILocService, IStats } from '../types/types';
 
 interface HomeProps {
   currentLocation: {
@@ -58,11 +58,18 @@ const Home: NextPage<HomeProps> = () => {
 
   useEffect(() => {
     const getLocationByApi = async () => {
-      const response = await fetch('/ip', {
+      if (!process.env.LOCATION_SERVICE_API) {
+        setCurrentLocation({
+          lat: 51.5074,
+          lon: -0.1278,
+        });
+        return;
+      }
+      const response = await fetch(process.env.LOCATION_SERVICE_API, {
         method: 'GET',
         cache: 'no-cache',
       });
-      const responseJson = (await response.json()) as IIPService;
+      const responseJson = (await response.json()) as ILocService;
 
       setCurrentLocation({
         lat: responseJson.lat ?? 51.5074,
