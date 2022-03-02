@@ -58,17 +58,20 @@ const Home: NextPage<HomeProps> = () => {
 
   useEffect(() => {
     const getLocationByApi = async () => {
-      if (!process.env.LOCATION_SERVICE_API) {
+      if (!process.env.NEXT_PUBLIC_LOCATION_SERVICE_API) {
         setCurrentLocation({
           lat: 51.5074,
           lon: -0.1278,
         });
         return;
       }
-      const response = await fetch(process.env.LOCATION_SERVICE_API, {
-        method: 'GET',
-        cache: 'no-cache',
-      });
+      const response = await fetch(
+        process.env.NEXT_PUBLIC_LOCATION_SERVICE_API,
+        {
+          method: 'GET',
+          cache: 'no-cache',
+        },
+      );
       const responseJson = (await response.json()) as ILocService;
 
       setCurrentLocation({
