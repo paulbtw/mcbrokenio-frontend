@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Flex, Grid, Text } from '@chakra-ui/layout';
 import axios from 'axios';
-import type { GetServerSideProps, NextPage } from 'next';
+import type { NextPage } from 'next';
 import {
   Center,
   CustomGridItem,
@@ -18,12 +18,16 @@ interface HomeProps {
   };
 }
 
-const Home: NextPage<HomeProps> = ({ currentLocation }) => {
+const Home: NextPage<HomeProps> = () => {
   const [markers, setMarkers] = useState<GeoJSON.FeatureCollection<
     GeoJSON.Geometry,
     GeoJSON.GeoJsonProperties
   > | null>(null);
   const [stats, setStats] = useState<IStats | null>(null);
+  const [currentLocation, setCurrentLocation] = useState<{
+    lat: number;
+    lon: number;
+  } | null>(null);
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -50,6 +54,23 @@ const Home: NextPage<HomeProps> = ({ currentLocation }) => {
       setMarkers(dataMarker);
     };
     fetchStats();
+  }, []);
+
+  useEffect(() => {
+    const getLocationByApi = async () => {
+      const response = await fetch('/ip', {
+        method: 'GET',
+        cache: 'no-cache',
+      });
+      const responseJson = (await response.json()) as IIPService;
+
+      setCurrentLocation({
+        lat: responseJson.lat ?? 51.5074,
+        lon: responseJson.lon ?? -0.1278,
+      });
+    };
+
+    getLocationByApi();
   }, []);
 
   return (
@@ -125,22 +146,6 @@ const Home: NextPage<HomeProps> = ({ currentLocation }) => {
       </Flex>
     </>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const forwarded = req.headers['x-forwarded-for'] as string;
-  const ip = forwarded ? forwarded.split(/, /)[0] : req.socket.remoteAddress;
-  const response = await axios.get(`http://ip-api.com/json/${ip}`);
-  const data = response.data as IIPService;
-
-  return {
-    props: {
-      currentLocation: {
-        lat: data.lat ?? 51.5074,
-        lon: data.lon ?? -0.1278,
-      },
-    },
-  };
 };
 
 export default Home;
