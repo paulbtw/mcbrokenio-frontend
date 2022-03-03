@@ -65,19 +65,26 @@ const Home: NextPage<HomeProps> = () => {
         });
         return;
       }
-      const response = await fetch(
-        process.env.NEXT_PUBLIC_LOCATION_SERVICE_API,
-        {
+      try {
+        const response = await fetch('/ip', {
           method: 'GET',
-          cache: 'no-cache',
-        },
-      );
-      const responseJson = (await response.json()) as ILocService;
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
 
-      setCurrentLocation({
-        lat: responseJson.lat ?? 51.5074,
-        lon: responseJson.lon ?? -0.1278,
-      });
+        const responseJson = (await response.json()) as ILocService;
+
+        setCurrentLocation({
+          lat: responseJson.lat ?? 51.5074,
+          lon: responseJson.lon ?? -0.1278,
+        });
+      } catch (err) {
+        setCurrentLocation({
+          lat: 51.5074,
+          lon: -0.1278,
+        });
+      }
     };
 
     getLocationByApi();
