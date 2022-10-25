@@ -28,6 +28,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         />
         <meta name="og:type" content="website" />
         <meta name="og:url" content="https://mcbroken.io/" />
+        <meta property="og:image" content="https://mcbroken.io/mcbroken.png" />
         <meta name="og:title" content="McBroken.io" />
         <meta
           name="og:description"
@@ -35,6 +36,10 @@ const App = ({ Component, pageProps }: AppProps) => {
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content="https://mcbroken.io/" />
+        <meta
+          property="twitter:image"
+          content="https://mcbroken.io/mcbroken.png"
+        />
         <meta name="twitter:title" content="McBroken.io" />
         <meta
           name="twitter:description"
