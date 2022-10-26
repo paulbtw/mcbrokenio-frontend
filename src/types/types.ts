@@ -44,8 +44,8 @@ export interface IIPService {
 
 export interface ILocService {
   success: boolean;
-  lat: number;
-  lon: number;
+  lat?: number;
+  lon?: number;
 }
 
 export enum Availability {

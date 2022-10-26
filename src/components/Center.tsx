@@ -2,20 +2,18 @@ import { FC } from 'react';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 import { ICountryStats } from '../types/types';
-import { AdvancedTable } from './AdvancedTable';
 import { CountryTable } from './CountryTable';
-import { World } from './World';
 
 interface IProps {
-  markers: GeoJSON.FeatureCollection<
+  markers?: GeoJSON.FeatureCollection<
     GeoJSON.Geometry,
     GeoJSON.GeoJsonProperties
-  > | null;
-  currentLocation: {
+  >;
+  currentLocation?: {
     lat: number;
     lon: number;
-  } | null;
-  countryStats: ICountryStats[] | undefined;
+  };
+  countryStats?: ICountryStats[];
 }
 
 const Map = dynamic(() => import('./Map'), {
@@ -33,8 +31,6 @@ export const Center: FC<IProps> = ({
         <TabList>
           <Tab>Map</Tab>
           <Tab>Stats</Tab>
-          <Tab isDisabled>3D World</Tab>
-          <Tab isDisabled>Advanced Table</Tab>
         </TabList>
         <TabPanels width="100%" height="100%">
           <TabPanel width="100%" height="100%" p={0}>
@@ -44,12 +40,6 @@ export const Center: FC<IProps> = ({
           </TabPanel>
           <TabPanel width="100%" height="100%" p={0}>
             <CountryTable data={countryStats} />
-          </TabPanel>
-          <TabPanel width="100%" height="100%" p={0}>
-            <World />
-          </TabPanel>
-          <TabPanel width="100%" height="100%" p={0}>
-            <AdvancedTable />
           </TabPanel>
         </TabPanels>
       </Tabs>
