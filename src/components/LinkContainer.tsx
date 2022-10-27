@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { LinkBox, LinkOverlay, useColorModeValue } from '@chakra-ui/react';
 import { DashboardCard } from './DashboardCard';
 
@@ -6,7 +6,10 @@ interface IProps {
   url: string;
 }
 
-export const LinkContainer: FC<IProps> = ({ children, url }) => {
+export const LinkContainer: FC<PropsWithChildren<IProps>> = ({
+  children,
+  url,
+}) => {
   return (
     <LinkBox
       w="100%"
