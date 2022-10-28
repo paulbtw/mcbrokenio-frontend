@@ -1,9 +1,9 @@
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { Flex, Text } from '@chakra-ui/layout';
 
 interface IProps {}
 
-export const DashboardCard: FC<IProps> = ({ children }) => {
+export const DashboardCard: FC<PropsWithChildren<IProps>> = ({ children }) => {
   return (
     <Flex
       wrap="wrap"

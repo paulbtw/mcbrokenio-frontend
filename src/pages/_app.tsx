@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -10,12 +11,25 @@ import '../theme/index.css';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            retry: false,
+            refetchOnWindowFocus: false,
+          },
+        },
+      }),
+  );
+
   useEffect(() => {
     router.events.on('routeChangeComplete', pageview);
     return () => {
       router.events.off('routeChangeComplete', pageview);
     };
   }, [router.events]);
+
   return (
     <>
       <Head>
@@ -65,9 +79,11 @@ const App = ({ Component, pageProps }: AppProps) => {
                   `,
         }}
       ></Script>
-      <ChakraProvider theme={theme}>
-        <Component {...pageProps} />
-      </ChakraProvider>
+      <QueryClientProvider client={queryClient}>
+        <ChakraProvider theme={theme}>
+          <Component {...pageProps} />
+        </ChakraProvider>
+      </QueryClientProvider>
     </>
   );
 };
