@@ -2,7 +2,7 @@
 
 > Visualization of the [McBroken backend](https://github.com/paulbtw/mcbrokenio) data
 
-The project idea is from [McBroken.com](https://mcbroken.com/) by [rashiq](https://rashiq.me/).
+The project idea is inspired by [McBroken.com](https://mcbroken.com/) made by [rashiq](https://rashiq.me/).
 
 Built with:
 
